@@ -1,0 +1,65 @@
+{
+  "global": {
+    "Display": {
+      "type": "prefix",
+      "cmd": "DISPLAY=$1",
+      "mode": "input",
+      "enable": false
+    },
+    "Zink": {
+      "type": "prefix",
+      "cmd": "MESA_LOADER_DRIVER_OVERRIDE=zink",
+      "mode": "toggle",
+      "enable": false
+    },
+    "Nvidia": {
+      "type": "prefix",
+      "cmd": "__NV_PRIME_RENDER_OFFLOAD=1 __VK_LAYER_NV_optimus=NVIDIA_only __GLX_VENDOR_LIBRARY_NAME=nvidia",
+      "mode": "toggle",
+      "enable": false
+    },
+    "Mangohud": {
+      "type": "command",
+      "cmd": "mangohud",
+      "mode": "toggle",
+      "enable": false
+    },
+    "Game Mode": {
+      "type": "command",
+      "cmd": "gamemoderun",
+      "mode": "toggle",
+      "enable": false
+    }
+  },
+  "runners": {
+    "wine": {
+      "command": "wine $add_bin",
+      "options": {
+        "WinePrefix": {
+          "type": "prefix",
+          "cmd": "WINEPREFIX=\"$1\"",
+          "mode": "folder",
+          "enable": false,
+          "input": ""
+        }
+      }
+    },
+    "linux": {
+      "command": "$add_bin",
+      "options": {
+        "Wayland sdl2": {
+          "type": "prefix",
+          "cmd": "SDL_VIDEODRIVER=wayland SDL_DYNAMIC_API=/usr/lib64/libSDL2-2.0.so",
+          "mode": "toggle",
+          "enable": false
+        },
+        "Wayland sld3": {
+          "type": "prefix",
+          "cmd": "SDL_VIDEODRIVER=wayland SDL_DYNAMIC_API=/usr/lib/libSDL3.so",
+          "mode": "toggle",
+          "enable": false
+        }
+      }
+    }
+  }
+}
