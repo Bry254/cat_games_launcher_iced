@@ -12,9 +12,9 @@ Launcher simple para lanzar juegos de linux creado en rust con iced pensado para
 ![Captura de launcher](/captura.png)
 
 
-## Instalación
+## Descarga e Instalación
 Descarga el programa desde [releases](https://github.com/Bry254/cat_games_launcher_iced/releases), configuralo para que se ejecute como programa y dale click.
-
+Tambien puedes descargar una version precompilada desde las [actions](https://github.com/Bry254/cat_games_launcher_iced/actions).
 ## Compilacion
 - Escribe en terminal (Nesesitas tener [rust](https://www.rust-lang.org/) y [git](https://git-scm.com/install/linux) instalado en tu sistema):
 ```bash
