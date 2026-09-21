@@ -1,0 +1,27 @@
+name: Rust
+
+on:
+  workflow_dispatch:
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+
+    runs-on: ubuntu-22.04
+    steps:
+      # Descargar el código del repositorio
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      # Compilar el proyecto
+      - name: Build
+        run: |
+          cargo build --release
+
+      # Guardar archivos
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: cat-games-launcher-linux-x86_64
+          path: target/release/cat_games_launcher
