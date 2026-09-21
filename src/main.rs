@@ -22,10 +22,10 @@ use crate::{
     },
 };
 use iced::{
-    Color, Element, Length, Theme, theme,
+    Color, Element, Event, Length, Subscription, Theme, event, theme,
     widget::{
-        button, checkbox, column, grid, image, pick_list, row, rule, scrollable, space, text,
-        text_input,
+        button, canvas::path::lyon_path::commands::Events, checkbox, column, grid, image,
+        pick_list, row, rule, scrollable, space, text, text_input,
     },
     window::{self},
 };
@@ -34,6 +34,7 @@ mod estructuras;
 mod libs;
 #[derive(Debug, Clone)]
 pub enum Message {
+    EventOcurred(Event),
     Warning(String),
     Save,
     Play,
@@ -625,8 +626,26 @@ impl App {
                     };
                 }
             }
+            Message::EventOcurred(evento) => match evento {
+                Event::Window(window::Event::FileDropped(path)) => {
+                    println!("Archivo soltado: {}", path.display());
+                }
+
+                Event::Window(window::Event::FileHovered(path)) => {
+                    println!("Arrastrando: {}", path.display());
+                }
+
+                Event::Window(window::Event::FilesHoveredLeft) => {
+                    println!("El archivo salió de la ventana");
+                }
+                _ => {}
+            },
         }
     }
+}
+
+fn subscription(_app: &App) -> Subscription<Message> {
+    iced::event::listen().map(Message::EventOcurred)
 }
 
 fn main() -> iced::Result {
@@ -666,8 +685,14 @@ fn main() -> iced::Result {
         .theme(tema)
         .window(window::Settings {
             icon: icon,
+            #[cfg(target_os = "linux")]
+            platform_specific: window::settings::PlatformSpecific {
+                application_id: "cat_games_launcher".to_string(),
+                ..Default::default()
+            },
             ..Default::default()
         })
+        .subscription(subscription)
         .run();
     // iced::run(App::update, App::view)
 }
